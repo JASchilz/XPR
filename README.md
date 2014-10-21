@@ -99,12 +99,15 @@ Notes
 
 I'm away from my Matlab environment, and until I regain it I might not be much help in fixing bugs or writing documentation. Right now, it will require an expert user to install and use XPR. Study minimal_experiment.m and the source code for inspiration.
 
+If you have another framework for presenting stimuli, you can use both that framework and XPR in the same experiment, though not in the same frame.
+
 To-Do
 =====
 
 * Better comments.
-* Going to rework the xObject animation queue. Behavior will change.
+* Going to rework the xObject animation queue. The interface and implementation of animation will change.
 * Documentation.
+* Tests
 
 Getting Involved
 ================
@@ -113,3 +116,6 @@ Ways to get involved:
 
 * Writing scripts which demonstrate the animation capabilities of each object.
 * Writing documentation, if you understand the system.
+* Easing for animations.
+* Packaging, if there is some canonical way to package Matlab.
+* Comments on timing accuracy.
