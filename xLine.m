@@ -1,6 +1,6 @@
 classdef xLine < xObject & handle
-    %xSquare Summary of this class goes here
-    %   Detailed explanation goes here
+    %xLine An animated line rendering class in the XPR toolbox.
+    %   This class provides an animated line for the XPR toolbox.
     
     properties
         % We define here all properties that the object class should have
@@ -8,10 +8,10 @@ classdef xLine < xObject & handle
         % Default values are specified in the properties (Constant)
         % section.
 
-        p1; % Width of the rectangle, in visual degrees.
-        p2; % Height of the rectangle, in visual degrees.
+        p1; % Location of the first end-point of the line, in visual degrees.
+        p2; % Location of the second end-point of the line, in visual degrees.
         
-        penWidth;
+        penWidth; % The width of the line, in pixels.
 
     end
     
