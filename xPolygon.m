@@ -1,6 +1,5 @@
 classdef xPolygon < xObject & handle
-    %xPolygon Summary of this class goes here
-    %   Detailed explanation goes here
+    %xPolygon An animated polygon rendering class in the XPR toolbox.
     
     properties
         pointList = [];
