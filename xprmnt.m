@@ -1,6 +1,6 @@
 classdef xprmnt < handle
     %xprmnt a class of objects defining a psychtoolbox experiment
-    %   Detailed explanation goes here
+    %   See example scripts for usage.
     
     properties
         window = 0;
