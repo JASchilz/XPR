@@ -1,6 +1,5 @@
 classdef xText < xObject & handle
-    %xSquare Summary of this class goes here
-    %   Detailed explanation goes here
+    %xText An animated text rendering class in the XPR toolbox.
     
     properties
         % We define here all properties that the object class should have
