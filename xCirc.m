@@ -1,6 +1,6 @@
 classdef xCirc < xObject & handle
-    %xSquare Summary of this class goes here
-    %   Detailed explanation goes here
+    %xCirc An animated geometric-disc rendering class in the XPR toolbox.
+    %   This class provides an animated disc for the XPR toolbox.
     
     properties
         d = 0;
