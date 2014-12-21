@@ -1,6 +1,5 @@
 classdef xRect < xObject & handle
-    %xSquare Summary of this class goes here
-    %   Detailed explanation goes here
+    %xRect An animated rectangle rendering class in the XPR toolbox.
     
     properties (SetAccess = private)
         % We define here all properties that the object class should have
