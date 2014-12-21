@@ -1,15 +1,21 @@
 classdef xObject < handle
-    %visObject Parent class for visual objects
-    %   Detailed explanation goes here
+    %xObject An abstract parent class in the XPR toolbox.
+    %   This abstract parent class provides all common methods
+    %   and attributes for visual screen objects within the XPR
+    %   toolbox.
     
     properties
         
-        x = 0;
-        y = 0;
-        color = [];
+        x = 0;              % Horizontal location of the object in visual degrees.
+        y = 0;              % Vertical location of the object in visual degrees.
+        color = [];         
         
-        pixX = 0;
-        pixY = 0;
+        pixX = 0;           % Horizontal location of the object in pixels.
+        pixY = 0;           % Vertical location of the object in pixels.
+        
+                            % Note that location is generally set by the user
+                            % in terms of visual degrees, and then interpretted and
+                            % translatted into terms of pixels.
     end
         
     properties (SetAccess = protected)
