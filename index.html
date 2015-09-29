@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Xpr by JASchilz</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Xpr</h1>
+        <p class="header">Object Oriented, Animation Oriented, Psychovisual Experiment Composition Layer for Psychtoolbox</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/JASchilz/XPR/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/JASchilz/XPR/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/JASchilz/XPR">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/JASchilz">JASchilz</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a id="xpr" class="anchor" href="#xpr" aria-hidden="true"><span class="octicon octicon-link"></span></a>XPR</h1>
+
+<p>Object Oriented, Animation Oriented, Psychovisual Experiment Composition Layer for Psychtoolbox</p>
+
+<p>XPR is a toolkit for running psycho-visual experiments in Matlab. It's a layer that sits on top of Psychtoolbox. I designed XPR to be:</p>
+
+<h2>
+<a id="object-oriented" class="anchor" href="#object-oriented" aria-hidden="true"><span class="octicon octicon-link"></span></a>Object Oriented</h2>
+
+<p>XPR is object oriented, easily comprehensible, and easily extensible.</p>
+
+<h2>
+<a id="animation-oriented" class="anchor" href="#animation-oriented" aria-hidden="true"><span class="octicon octicon-link"></span></a>Animation Oriented</h2>
+
+<p>XPR specifically eases coding of animations. It requires just one simple line to tell a rectangular countdown timer to shrink to nothing over the course of the following x seconds. Similarly, primitives can be told to smoothly enlarge, change color, move, etc., over a parameterized amount of time with a single function call.</p>
+
+<h2>
+<a id="cross-platform" class="anchor" href="#cross-platform" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cross Platform</h2>
+
+<p>XPR maintains the cross-platform compatibility of Psychtoolbox.</p>
+
+<h1>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h1>
+
+<p>For a complete example, see minimal_experiment.m. Included below are some excerpts.</p>
+
+<p>In the following examples, we create an two-forced alternative choice task in which the subject is presented with a white disc in the center of the screen which is moving to either the left or the right. Subject is tasked to indicate the direction of movement with the arrow keys with three seconds of stimulation onset. A timer/points bar represents the points/time available to the subject as the task progresses.</p>
+
+<p>Create a white circle stimuli, to be presented in the center of the screen, with a diameter of 1.5 visual degrees:</p>
+
+<pre><code>    stimuli.circle = xCirc('x', 0,...
+    'y', 0,...
+    'd', 1.5,...
+    'color', [240, 240, 240]);
+</code></pre>
+
+<p>Create a timer/points bar:</p>
+
+<pre><code>    stimuli.pointBar = xPointBar('x', -5,...
+    'y', 0);
+</code></pre>
+
+<p>This timer/points bar will be on the left center of the screen. By default, this bar will start off green and "shrink" until it runs out of time/points. Though our experiment does not contain a penalty phase, this bar would turn red and grow to indicate a growing point-penalty if instructed to.</p>
+
+<p>Register names for the left and right arrow keys:</p>
+
+<pre><code>    response.leftKey = KbName('leftarrow');
+    response.rightKey = KbName('rightarrow');
+</code></pre>
+
+<p>Now the trial begins. We randomly choose a direction 'param.dir' of 1 or -1 and then set the scene as follows:</p>
+
+<pre><code>    stimuli.circle.setVis(true); % Make the circle visible
+    stimuli.circle.move('x', 0); % Return the circle to the center of the screen
+
+    stimuli.circle.move('x', param.dir, 'interval', 3);
+    % Direct the circle to move one visual degree to the left or the right, according
+    % to the value of param.dir, over the course of three seconds
+
+    stimuli.pointBar.setVis(true); % Set the points/timer bar to be visible
+    stimuli.pointBar.changePoints('points', 30); % Put 30 points on the pointbar.
+
+    stimuli.pointBar.changePoints('points', 0, 'interval', 3); 
+    % Direct the point/timer bar to shrink down to zero points over the course of
+    % three seconds.
+
+
+    [keys, keyTime] = xpr.animate(3, 'freeze', [response.leftKey response.rightKey]);
+    % We have instructed all of our objects where to move over the course of the
+    % next three seconds. That done, we animate the scene. This instruction says to
+    % animate our scene for three seconds, but to stop the animation if the subject
+    % hits either the left arrow or the right arrow.
+
+
+    points = floor(stimuli.pointBar.points);
+    % Record the number of points left on the pointBar when we froze the animation
+
+
+    stimuli.circle.setVis(false);
+    stimuli.pointBar.setVis(false);
+    % Hide the circle and the point bar in preparation for feedback delivery
+
+</code></pre>
+
+<p>Then we would do some logic to figure out whether the subject provided a response, whether it was the correct response, and how many points we should award the subject. We might employ an xText object to display feedback, as done in minimal_experiment.m.</p>
+
+<h1>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h1>
+
+<p>Download, and place the XPR directory in your path.</p>
+
+<p>You must have psychtoolbox to use XPR. XPR is a toolkit which executes the more basic functions of psychtoolbox.</p>
+
+<h1>
+<a id="notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h1>
+
+<p>I'm away from my Matlab environment, and until I regain it I might not be much help in fixing bugs or writing documentation. Right now, it will require an expert user to install and use XPR. Study minimal_experiment.m and the source code for inspiration.</p>
+
+<p>If you have another framework for presenting stimuli, you can use both that framework and XPR in the same experiment, though not in the same frame.</p>
+
+<h1>
+<a id="to-do" class="anchor" href="#to-do" aria-hidden="true"><span class="octicon octicon-link"></span></a>To-Do</h1>
+
+<ul>
+<li>Better comments.</li>
+<li>Going to rework the xObject animation queue. The interface and implementation of animation will change.</li>
+<li>Documentation.</li>
+<li>Tests</li>
+</ul>
+
+<h1>
+<a id="getting-involved" class="anchor" href="#getting-involved" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Involved</h1>
+
+<p>Ways to get involved:</p>
+
+<ul>
+<li>Writing scripts which demonstrate the animation capabilities of each object.</li>
+<li>Writing documentation, if you understand the system.</li>
+<li>Easing for animations.</li>
+<li>Packaging, if there is some canonical way to package Matlab.</li>
+<li>Comments on timing accuracy.</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
